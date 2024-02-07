@@ -8,6 +8,6 @@ app.use(morgan("dev"))
 //Settings
 app.set("PORT",3000)
 //routes
-app.use(authRouter)
+app.use("/api",authRouter)
 
 export default app
