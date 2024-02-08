@@ -5,6 +5,7 @@ import { OkPacket } from 'mysql';
 import bcrypt from "bcryptjs"
 import { RowDataPacket } from 'mysql2';
 
+
 export const signup =  async (req:Request,res:Response)=>{
     try {
         const {username, email, password} = req.body;
@@ -44,6 +45,16 @@ export const signin = async (req:Request,res:Response)=>{
 
 }
 
-export const profile = (req:Request,res:Response)=>{
-    res.send("profile")
+export const profile = async (req:Request,res:Response)=>{
+    try {
+        const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM users WHERE id = ?", [req.userId]);
+        const user = rows[0];
+        if (!user) return res.status(404).json({ message: "User not found" });
+        res.json(user);
+    }
+    catch (error) {
+        res.status
+    }
+
+
 }
